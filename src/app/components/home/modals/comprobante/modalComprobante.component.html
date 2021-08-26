@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Comprobante alquiler de puesto</h1>
+  <mat-dialog-content>
+    <mat-card-content>
+      <div mat-line><strong>Días: </strong> {{this.dias}}</div>
+      <div mat-line><strong>Código: </strong> {{this.codigo}}</div>
+      <div mat-line><strong>Pagado: </strong> {{this.pagado}}</div>
+    </mat-card-content>
+  </mat-dialog-content>
+  <div mat-dialog-actions>
+    <button (click)="cerrarDialog()" mat-raised-button color="basic">Ok</button>
+  </div>

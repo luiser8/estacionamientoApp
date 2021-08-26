@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Verificación de código</h1>
+<form [formGroup]="formCheckCodigo">
+  <mat-dialog-content>
+    <mat-form-field>
+      <input type="text" autocomplete="off" [(ngModel)]="local_data.codigo" placeholder="Código" required matInput
+        formControlName="codigo">
+        <mat-error *ngIf="formCheckCodigo?.controls?.codigo?.hasError('required')">Campo código es requerido</mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  <div mat-dialog-actions>
+    <button (click)="cerrarDialog()" mat-raised-button color="basic">Cancelar</button>
+    <button (click)="salvar()" [disabled]="!formCheckCodigo.valid" type="submit" mat-raised-button color="primary">Estacionar</button>
+  </div>
+</form>

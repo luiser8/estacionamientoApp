@@ -1,0 +1,35 @@
+<div class="container">
+    <div *ngIf="puestos && puestos.length > 0" class="home-flexgrid" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="22px" fxLayoutAlign="flex-start">
+        <mat-card fxFlex.lt-md="0 1 calc(50% - 22px)" fxFlex.lt-sm="100%" *ngFor="let puesto of puestos" [matMenuTriggerFor]="menu" class="home-card" [ngClass]="{
+            'bg_estado_1':puesto.disponibilidad === 1,'bg_estado_2':puesto.disponibilidad === 2, 'bg_estado_3':puesto.disponibilidad === 3, 'bg_estado_0':puesto.estado === false}">
+            <mat-card-content class="card_content">
+                <div mat-line><strong class="card_title">{{ puesto.codigo }}</strong></div>
+                    <mat-menu #menu="matMenu">
+                        <div *ngIf="puesto.disponibilidad === 1 && puesto.estado === true">
+                            <button (click)="abrirModal('Add',{}, puesto._id, 2)" mat-menu-item>Alquilar como fijo</button>
+                            <button (click)="abrirModal('Add',{}, puesto._id, 1)" mat-menu-item>Solo estacionar</button>
+                        </div>
+                        <div *ngIf="puesto.disponibilidad === 2 && puesto.estado === true">
+                            <button (click)="abrirModal('Add',{}, puesto._id, 4)" mat-menu-item>Ingresar código de validación</button>
+                        </div>
+                        <div *ngIf="puesto.disponibilidad === 3 && puesto.estado === true">
+                            <button (click)="abrirModal('Add',{}, puesto._id, 3)" mat-menu-item>Retirar vehículo</button>
+                        </div>
+                        <div *ngIf="puesto.estado === false">
+                            <button mat-menu-item>Puesto bloqueado</button>
+                        </div>
+                    </mat-menu>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div *ngIf="puestos && puestos.length === 0" class="usuarios-flexgrid" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+        <mat-card fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%" class="home-card-error">
+            <mat-card-header>
+                <mat-card-title>Sin puestos creados aún</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div mat-line><h1>A crear puestos!. Vaya al menú lateral izquierdo y selecione Puesto para crearlos.</h1></div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Factura retiro de vehículo</h1>
+  <mat-dialog-content>
+    <mat-card-content>
+      <div mat-line><strong>Código: </strong> {{this.codigo}}</div>
+      <div mat-line><strong>Monto: </strong> {{this.monto}}</div>
+      <div mat-line><strong>Entrada: </strong> {{this.entrada}}</div>
+      <div mat-line><strong>Salida: </strong> {{this.salida}}</div>
+    </mat-card-content>
+  </mat-dialog-content>
+  <div mat-dialog-actions>
+    <button (click)="cerrarDialog()" mat-raised-button color="basic">Ok</button>
+  </div>

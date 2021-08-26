@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Alquilar como fijo</h1>
+<form [formGroup]="formUsrPuestos">
+  <mat-dialog-content>
+    <mat-form-field>
+      <input type="text" autocomplete="off" [(ngModel)]="local_data.cedula" placeholder="Cédula" required matInput
+        formControlName="cedula">
+        <mat-error *ngIf="formUsrPuestos?.controls?.cedula?.hasError('pattern')">Campo cédula es admitido solo números</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" autocomplete="off" [(ngModel)]="local_data.nombres" placeholder="Nombres" required matInput
+        formControlName="nombres">
+        <mat-error *ngIf="formUsrPuestos?.controls?.nombres?.hasError('pattern')">Campo nombres es admitido solo letras</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" autocomplete="off" [(ngModel)]="local_data.apellidos" placeholder="Apellidos" required matInput
+        formControlName="apellidos">
+        <mat-error *ngIf="formUsrPuestos?.controls?.apellidos?.hasError('pattern')">Campo apellidos es admitido solo letras</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" autocomplete="off" [(ngModel)]="local_data.dias" placeholder="Días" required matInput
+        formControlName="dias">
+        <mat-error *ngIf="formUsrPuestos?.controls?.dias?.hasError('pattern')">Campo días es admitido solo números</mat-error>
+        <mat-error *ngIf="formUsrPuestos?.controls?.dias?.hasError('min')">Campo días 12 como mínimo</mat-error>
+        <mat-error *ngIf="formUsrPuestos?.controls?.dias?.hasError('max')">Campo días 12 como máximo</mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  <div mat-dialog-actions>
+    <button (click)="cerrarDialog()" mat-raised-button color="basic">Cancelar</button>
+    <button (click)="salvar()" [disabled]="!formUsrPuestos.valid" type="submit" mat-raised-button color="primary">Pagar</button>
+  </div>
+</form>
