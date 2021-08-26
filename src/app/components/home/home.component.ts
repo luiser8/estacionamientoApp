@@ -140,6 +140,7 @@ export class HomeComponent implements OnInit {
       if(res){
         this.setPuesto(puestoId, tipo);
         this.setReservacion(res._id, 1);
+        this.openSnackBar(`Se ha estacionado cliente fijo!`);
       }
     }, error => {
       console.log(error);
