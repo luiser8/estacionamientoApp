@@ -46,6 +46,17 @@ export class PuestosComponent implements OnInit {
       console.log(error);
     });
   }
+  updatePuesto(id: String, estado : Boolean){
+    let changeStd : Boolean | any;
+    if(estado === true){changeStd = false}
+    if(estado === false){changeStd = true}
+    this.endpoint.Put('puestos/estado', id, {'estado': changeStd}).subscribe((res:any) => {
+      this.getPuestos();
+      this.openSnackBar(`Puesto ha sido ${changeStd === true ? 'Activado' : 'Inactivado'}!`);
+    }, error => {
+      console.log(error);
+    });
+  }
   getPuestos() {
     this.endpoint.Get('puestos').subscribe(res => {
       this.puestos = res;

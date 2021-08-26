@@ -13,7 +13,7 @@
 			tecleamos git clone https://github.com/luiser8/estacionamientoApp.git
 		* Entramos con la consola / terminal en el proyecto descargado / clonado 
 		 	estacionamientoApp
-			entando en la carpeta raiz del proyecto ejecutamos yarn install
+			estando en la carpeta raiz del proyecto ejecutamos yarn install
 			para instalar las dependencias necesarias
 		* Al finalizar la instalacion, ejecutamos ng serve --open --port=4200
 		* En el caso que se necesite cambiar de ip del api rest

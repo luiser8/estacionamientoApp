@@ -28,6 +28,8 @@
                 <td mat-cell *matCellDef="let element"> 
                     <button (click)="delPuesto(element._id)" *ngIf="element.disponibilidad === 1" class="btn-icon-add" mat-fab color="primary" aria-label="puestos icon button with a add"><mat-icon>delete</mat-icon></button>
                     <button *ngIf="element.disponibilidad !== 1" class="btn-icon-add" mat-fab color="primary" aria-label="puestos icon button with a add"><mat-icon>block</mat-icon></button>
+                    <button (click)="updatePuesto(element._id, element.estado)" *ngIf="element.disponibilidad === 1 && element.estado === true" class="btn-icon-add" mat-fab color="primary" aria-label="puestos icon button with a add"><mat-icon>rotate_left</mat-icon></button>
+                    <button (click)="updatePuesto(element._id, element.estado)" *ngIf="element.disponibilidad === 1 && element.estado === false" class="btn-icon-add" mat-fab color="primary" aria-label="puestos icon button with a add"><mat-icon>rotate_right</mat-icon></button>
                 </td>
             </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

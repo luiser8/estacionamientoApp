@@ -78,7 +78,18 @@ export class HomeComponent implements OnInit {
       verticalPosition: this.verticalPosition,
     });
   }
-
+  getPuestos() {
+    this.endpoint.Get('puestos').subscribe((res:any) => {
+      this.puestos = res;
+      for(let i=0; i < res.length; i++){
+        if(res[i].disponibilidad === 2){
+          this.checkVencidos(res[i]._id);
+        }
+      } 
+    }, error => {
+      console.log(error);
+    });
+  }
   checkCodigoFijo(codigo:String, puestoId: String, tipo:Number){
     this.endpoint.GetId('comprobante/codigo', codigo).subscribe((res:any) => {
       if(res !== null){
@@ -90,7 +101,35 @@ export class HomeComponent implements OnInit {
       console.log(error);
     });
   }
-
+  checkEsFijo(puestoId: String, tipo:Number){
+    this.endpoint.GetId('comprobante/puesto', puestoId).subscribe((res:any) => {
+      if(res !== null){
+        this.setPuesto(puestoId, 2);
+        this.setReservacion(res.reservacionId, 2);
+      }else{
+        this.retirar(puestoId, tipo);
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
+  checkVencidos(puestoId: String){
+    this.endpoint.GetId('comprobante/puesto', puestoId).subscribe((res:any) => {
+      if(res){
+        let dia = res.dias;
+        let ahora = moment(Date.now());
+        let entrada = moment(res.createdAt);
+        let horas = ahora.diff(entrada, 'hours');
+          if(horas > dia){
+            this.setPuesto(puestoId, 1);
+            this.delReservacion(res.reservacionId);
+            this.delComprobante(res._id);
+          }
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
   agregarUsrEstacionar(usuario:Usuario | any, tipo : Number){
     let msj = tipo === 3 ? 'Reservación' : 'Alquiler';
     this.endpoint.Post('usuarios', usuario).subscribe((res:any) => {
@@ -112,18 +151,7 @@ export class HomeComponent implements OnInit {
       console.log(error);
     });
   }
-  checkEsFijo(puestoId: String, tipo:Number){
-    this.endpoint.GetId('comprobante/puesto', puestoId).subscribe((res:any) => {
-      if(res !== null){
-        this.setPuesto(puestoId, 2);
-        this.setReservacion(res.reservacionId, 2);
-      }else{
-        this.retirar(puestoId, tipo);
-      }
-    }, error => {
-      console.log(error);
-    });
-  }
+
   retirar(puestoId: String, tipo:Number){
     this.endpoint.GetId('reservacion/puesto', puestoId).subscribe((res:any) => {
       if(res){
@@ -175,37 +203,17 @@ export class HomeComponent implements OnInit {
       console.log(error);
     });
   }
-  getPuestos() {
-    this.endpoint.Get('puestos').subscribe((res:any) => {
-      this.puestos = res;
-      for(let i=0; i < res.length; i++){
-        if(res[i].disponibilidad === 2){
-          this.checkVencidos(res[i]._id);
-        }
-      } 
-    }, error => {
-      console.log(error);
-    });
-  }
-  checkVencidos(puestoId: String){
-    this.endpoint.GetId('comprobante/puesto', puestoId).subscribe((res:any) => {
-      if(res){
-        let dia = res.dias;
-        let ahora = moment(Date.now());
-        let entrada = moment(res.createdAt);
-        let horas = ahora.diff(entrada, 'hours');
-          if(horas > dia){
-            this.setPuesto(puestoId, 1);
-          }
-      }
-    }, error => {
-      console.log(error);
-    });
-  }
   delReservacion(id: String){
     this.endpoint.Delete('reservacion', id).subscribe((res:any) => {
       this.getPuestos();
       this.openSnackBar('Reservación ha sido quitada!');
+    }, error => {
+      console.log(error);
+    });
+  }
+  delComprobante(id: String){
+    this.endpoint.Delete('comprobante', id).subscribe((res:any) => {
+      this.getPuestos();
     }, error => {
       console.log(error);
     });
