@@ -64,5 +64,4 @@ export class PuestosComponent implements OnInit {
       console.log(error);
     });
   }
-
 }

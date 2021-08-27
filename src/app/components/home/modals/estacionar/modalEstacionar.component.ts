@@ -18,6 +18,7 @@ export class ModalEstacionarComponent implements OnInit{
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Usuario) {
     this.local_data = { ...data };
     this.action = this.local_data.action;
+    this.dialogRef.disableClose = true;
   }
 
 ngOnInit(){

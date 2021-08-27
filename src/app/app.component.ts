@@ -11,6 +11,4 @@ export class AppComponent {
 
   events: string[] = [];
   opened: boolean = false;
-
-  title = 'estacionamientoapp';
 }
